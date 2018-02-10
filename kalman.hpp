@@ -1,5 +1,8 @@
 // TODO: Add hyped header comments
 
+#ifndef HYPED_NAVIGATION_KALMAN_HPP_
+#define HYPED_NAVIGATION_KALMAN_HPP_
+
 template<typename T>
 class Kalman {
   
@@ -42,3 +45,5 @@ class Kalman {
   T filtered_value_;
   
 };
+
+#endif  // HYPED_NAVIGATION_KALMAN_HPP_
