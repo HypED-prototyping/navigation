@@ -15,11 +15,11 @@ class Kalman {
   // TODO: Decide the process noise value
   // TODO: Check if estimation_error is needed as an arguement
   
-  Kalman (T input_value, T measurement_noise, T estimation_error = 0) {
-    filtered_value_ = input_value;
-    estimation_error_covariance_ = estimation_error;
-    measurement_noise_covariance_ = measurement_noise;
-  }
+  Kalman (T input_value, T measurement_noise, T estimation_error = 0)
+    : measurement_noise_covariance_(measurement_noise),
+    estimation_error_covariance_(estimation_error),
+    filtered_value_(input_value)
+    {}
   
   T filter (T input) {
     estimation_error_covariance_ += k_process_noise_;
@@ -33,8 +33,8 @@ class Kalman {
   
  private:
   // TODO: Convert to vector class
-  // TODO: Make this a constant T
-  T k_process_noise_;
+  // TODO: Decide value of process noise
+  const T k_process_noise_{0.01};
   
   T measurement_noise_covariance_;
   T estimation_error_covariance_;
