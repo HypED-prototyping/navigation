@@ -2,199 +2,172 @@
   TODO: Add hyped header comments
   TODO: stackoverflow.com/questions/874298/c-templates-that-accept-only-certain-types
   TODO: Check if array can be used.
-  TODO: How to handle if array if of different size?
+  TODO: How to handle if array is of different size?
 */
 
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
-#include <vector>
-
-template<typename T>
+template <typename T, int N>
 class Vector
 {
   public:
-  std::vector<T> vector;
+  T vector[N] = {};
+  int vectorSize = N;
 
-  Vector<T>(int n)
-  {
-    vector.resize(n,0);
-  }
+  Vector() {}
 
-  int size() const;
+  int size();
   void set(int index, T value);
   
-  Vector<T> operator-(Vector<T> rhs);
+  Vector<T,N> operator-() const;
   
-  Vector<T> &operator+=(const Vector<T> &rhs);
-  Vector<T> &operator+=(const T rhs);
+  Vector<T,N> &operator+=(const Vector<T,N> &rhs);
+  Vector<T,N> &operator+=(const T rhs);
   
-  Vector<T> &operator-=(const Vector<T> &rhs);
-  Vector<T> &operator-=(const T rhs);
+  Vector<T,N> &operator-=(const Vector<T,N> &rhs);
+  Vector<T,N> &operator-=(const T rhs);
   
-  Vector<T> &operator*=(const T rhs); //scalar multiplication  
-  Vector<T> &operator/=(const T rhs); // scalar division
+  Vector<T,N> &operator*=(const T rhs); //scalar multiplication  
+  Vector<T,N> &operator/=(const T rhs); // scalar division
 };
 
-template<typename T>
-int Vector<T>::size() const
+template<typename T, int N>
+int Vector<T,N>::size()
 {
-  return this->vector.size();
+  return this->vectorSize;
 }
 
-template<typename T>
-void Vector<T>::set(int index, T value)
+template <typename T,int N>
+void Vector<T,N>::set(int index, T value)
 {
   this->vector[index] = value;
 }
 
-template<typename T>
-Vector<T> Vector<T>::operator-(Vector<T> rhs)
+template <typename T,int N>
+Vector<T,N> Vector<T,N>::operator-() const
 {
-  for(int i=0;i<rhs.size();i++)
-    rhs.vector[i] = -rhs.vector[i];
-  return rhs;
+  return (Vector<T,N>() - *this);
 }
 
-template<typename T>
-Vector<T> &Vector<T>::operator+=(const Vector<T>& rhs)
+template <typename T,int N>
+Vector<T,N> &Vector<T,N>::operator+=(const Vector<T,N>& rhs)
 {
-  for(int i=0;i<rhs.size();i++)
-    {
-      this->vector[i] += rhs.vector[i];
-    }
+  for(int i=0;i<N;i++)
+    this->vector[i] += rhs.vector[i];
   return *this;
 }
 
-template<typename T>
-Vector<T> &Vector<T>::operator+=(const T rhs)
+template <typename T,int N>
+Vector<T,N> &Vector<T,N>::operator+=(const T rhs)
 {
-  int vectorSize = this->vector.size();
-  for(int i=0;i<vectorSize;i++)
-    {
-      this->vector[i] += rhs;
-    }
+  for(int i=0;i<N;i++)
+    this->vector[i] += rhs;
   return *this;
 }
 
-template<typename T>
-Vector<T> &Vector<T>::operator-=(const Vector<T> &rhs)
+template <typename T,int N>
+Vector<T,N> &Vector<T,N>::operator-=(const Vector<T,N> &rhs)
 {
-  *this += -rhs;
+  for(int i=0;i<N;i++)
+    this->vector[i] += rhs.vector[i];
   return *this;
 }
 
-template<typename T>
-Vector<T> &Vector<T>::operator-=(const T rhs)
+template <typename T,int N>
+Vector<T,N> &Vector<T,N>::operator-=(const T rhs)
 {
-  *this += -rhs;
+  for(int i=0;i<N;i++)
+    this->vector[i] -= rhs;
   return *this;
 }
 
-template<typename T>
-Vector<T> &Vector<T>::operator*=(const T rhs)
+template <typename T,int N>
+Vector<T,N> &Vector<T,N>::operator*=(const T rhs)
 {
-  int vectorSize = this->vector.size();
-  for(int i=0;i<vectorSize;i++)
-    {
-      this->vector[i] *= rhs;
-    }
+  for(int i=0;i<N;i++)
+    this->vector[i] *= rhs;
   return *this;
 }
 
-template<typename T>
-Vector<T> &Vector<T>::operator/=(const T rhs)
+template <typename T,int N>
+Vector<T,N> &Vector<T,N>::operator/=(const T rhs)
 {
-  int vectorSize = this->vector.size();
-  for(int i=0;i<vectorSize;i++)
-    {
-      this->vector[i] /= rhs;
-    }
+  for(int i=0;i<N;i++)
+    this->vector[i] /= rhs;
   return *this;
 }
 
 
-template<typename T>
-Vector<T> operator+(Vector<T> lhs, const Vector<T> &rhs)
+template <typename T,int N>
+Vector<T,N> operator+(Vector<T,N> lhs, const Vector<T,N> &rhs)
 {
   lhs += rhs;
   return lhs;
 }
 
-template<typename T>
-Vector<T> operator+(Vector<T> lhs, const T rhs)
+template <typename T,int N>
+Vector<T,N> operator+(Vector<T,N> lhs, const T rhs)
 {
   lhs += rhs;
   return lhs;
 }
 
-template<typename T>
-Vector<T> operator+(const T lhs, Vector<T> rhs)
+template <typename T,int N>
+Vector<T,N> operator+(const T lhs, Vector<T,N> rhs)
 {
   rhs += lhs;
   return rhs;
 }
 
-template<typename T>
-Vector<T> operator-(Vector<T> lhs, const Vector<T> &rhs)
+template <typename T,int N>
+Vector<T,N> operator-(Vector<T,N> lhs, const Vector<T,N> &rhs)
 {
   lhs -= rhs;
   return lhs;
 }
 
-template<typename T>
-Vector<T> operator-(Vector<T> lhs, const T rhs)
+template <typename T,int N>
+Vector<T,N> operator-(Vector<T,N> lhs, const T rhs)
 {
   lhs -= rhs;
   return lhs;
 }
 
-template<typename T>
-Vector<T> operator-(const T lhs, Vector<T> rhs)
+template <typename T,int N>
+Vector<T,N> operator-(const T lhs, Vector<T,N> rhs)
 {
   return (-rhs) += lhs;
 }
 
-template<typename T>
-Vector<T> operator*(Vector<T> lhs, const T rhs)
+template <typename T,int N>
+Vector<T,N> operator*(Vector<T,N> lhs, const T rhs)
 {
   lhs *= rhs;
   return lhs;
 }
 
-template<typename T>
-Vector<T> operator*(const T lhs, Vector<T> rhs)
+template <typename T,int N>
+Vector<T,N> operator*(const T lhs, Vector<T,N> rhs)
 {
   rhs *= lhs;
   return rhs;
 }
 
-template<typename T>
-Vector<T> operator/(Vector<T> lhs, const T rhs)
+template <typename T,int N>
+Vector<T,N> operator/(Vector<T,N> lhs, const T rhs)
 {
   lhs /= rhs;
   return lhs;
 }
 
-template<typename T1, typename T2>
-bool operator==(const Vector<T1>& lhs, const Vector<T2>& rhs)
+template <typename T1, typename T2,int N>
+bool operator==(const Vector<T1,N>& lhs, const Vector<T2,N>& rhs)
 {
-  if(lhs.size() == rhs.size())
-    {
-      for(int i=0;i<lhs.size();i++)
-	if(lhs.vector[i] != rhs.vector[i])
-	  return false;
-      return true;
-    }
-  return false;
+  for(int i=0;i<N;i++)
+    if(lhs.vector[i] != rhs.vector[i])
+      return false;
+  return true;
 }
-
-// TODO: Consider cleaning this up.
-/*template<typename T>
-std::ostream &operator<<(std::ostream &out, const Vector<T> &v)
-{
-  out << "(" << v.x << ", " << v.y << ", " << v.z << ")";
-  return out;
-}//*/
 
 #endif // VECTOR_H_
