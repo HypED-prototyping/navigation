@@ -1,8 +1,6 @@
 /*
   TODO: Add hyped header comments
   TODO: stackoverflow.com/questions/874298/c-templates-that-accept-only-certain-types
-  TODO: Check if array can be used.
-  TODO: How to handle if array is of different size?
 */
 
 #ifndef VECTOR_H_
