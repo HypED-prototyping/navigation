@@ -3,8 +3,8 @@
 
 void print(Vector<int> &v)
 {
-  for(int x : v)
-    std::cout << x << '\t';
+  for(int i=0;i<v.size();i++)
+    std::cout << v.vector[i] << '\t';
   std::cout << '\n';
 }
 
@@ -27,6 +27,7 @@ int main()
   vector3 = vector1 / 5;
 
   (vector1 == vector3) ? std::cout << "False" : std::cout << "True";
+  std :: cout << '\n';
   
   print(vector1);
   print(vector2);
