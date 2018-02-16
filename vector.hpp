@@ -73,8 +73,6 @@ void Vector<T,N>::set(int index, T value)
   this->vector[index] = value;
 }
 
-// TODO: Check if this is okay and won't
-//       cause issues with memory
 template <typename T, int N>
 Vector<T,N> Vector<T,N>::operator-() const
 {
