@@ -3,6 +3,8 @@
   TODO: stackoverflow.com/questions/874298/c-templates-that-accept-only-certain-types
 */
 
+#include <type_traits>
+
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
@@ -10,6 +12,11 @@ template <typename T, int N>
 class Vector
 {
 public:
+  static_assert((std::is_same<int, T>::value) ||
+		(std::is_same<float, T>::value) ||
+		(std::is_same<double, T>::value),
+		"T must be of type int, float or double.");
+  
   T vector[N] = {};
   int vectorSize = N;
 
@@ -18,6 +25,7 @@ public:
 
   Vector(){};
   Vector(Vector<int,N> &rhs);
+  Vector(Vector<float,N> &rhs);
   Vector(Vector<double,N> &rhs);
   
   Vector<T,N> operator-() const;
@@ -32,14 +40,21 @@ public:
   Vector<T,N> &operator/=(const T rhs); // scalar division
 };
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N>::Vector(Vector<int,N> &rhs)
 {
   for(int i=0;i<N;i++)
     this->vector[i] = T(rhs.vector[i]);
 }
 
-template <typename T,int N>
+template <typename T, int N>
+Vector<T,N>::Vector(Vector<float,N> &rhs)
+{
+  for(int i=0;i<N;i++)
+    this->vector[i] = T(rhs.vector[i]);
+}
+
+template <typename T, int N>
 Vector<T,N>::Vector(Vector<double,N> &rhs)
 {
   for(int i=0;i<N;i++)
