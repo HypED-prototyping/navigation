@@ -9,14 +9,16 @@
 template <typename T, int N>
 class Vector
 {
-  public:
+public:
   T vector[N] = {};
   int vectorSize = N;
 
-  Vector() {}
-
   int size();
   void set(int index, T value);
+
+  Vector(){};
+  Vector(Vector<int,N> &rhs);
+  Vector(Vector<double,N> &rhs);
   
   Vector<T,N> operator-() const;
   
@@ -30,25 +32,41 @@ class Vector
   Vector<T,N> &operator/=(const T rhs); // scalar division
 };
 
-template<typename T, int N>
+template <typename T,int N>
+Vector<T,N>::Vector(Vector<int,N> &rhs)
+{
+  for(int i=0;i<N;i++)
+    this->vector[i] = T(rhs.vector[i]);
+}
+
+template <typename T,int N>
+Vector<T,N>::Vector(Vector<double,N> &rhs)
+{
+  for(int i=0;i<N;i++)
+    this->vector[i] = T(rhs.vector[i]);
+}
+
+template <typename T, int N>
 int Vector<T,N>::size()
 {
   return this->vectorSize;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 void Vector<T,N>::set(int index, T value)
 {
   this->vector[index] = value;
 }
 
-template <typename T,int N>
+// TODO: Check if this is okay and won't
+//       cause issues with memory
+template <typename T, int N>
 Vector<T,N> Vector<T,N>::operator-() const
 {
   return (Vector<T,N>() - *this);
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> &Vector<T,N>::operator+=(const Vector<T,N>& rhs)
 {
   for(int i=0;i<N;i++)
@@ -56,7 +74,7 @@ Vector<T,N> &Vector<T,N>::operator+=(const Vector<T,N>& rhs)
   return *this;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> &Vector<T,N>::operator+=(const T rhs)
 {
   for(int i=0;i<N;i++)
@@ -64,7 +82,7 @@ Vector<T,N> &Vector<T,N>::operator+=(const T rhs)
   return *this;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> &Vector<T,N>::operator-=(const Vector<T,N> &rhs)
 {
   for(int i=0;i<N;i++)
@@ -72,7 +90,7 @@ Vector<T,N> &Vector<T,N>::operator-=(const Vector<T,N> &rhs)
   return *this;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> &Vector<T,N>::operator-=(const T rhs)
 {
   for(int i=0;i<N;i++)
@@ -80,7 +98,7 @@ Vector<T,N> &Vector<T,N>::operator-=(const T rhs)
   return *this;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> &Vector<T,N>::operator*=(const T rhs)
 {
   for(int i=0;i<N;i++)
@@ -88,7 +106,7 @@ Vector<T,N> &Vector<T,N>::operator*=(const T rhs)
   return *this;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> &Vector<T,N>::operator/=(const T rhs)
 {
   for(int i=0;i<N;i++)
@@ -97,69 +115,69 @@ Vector<T,N> &Vector<T,N>::operator/=(const T rhs)
 }
 
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> operator+(Vector<T,N> lhs, const Vector<T,N> &rhs)
 {
   lhs += rhs;
   return lhs;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> operator+(Vector<T,N> lhs, const T rhs)
 {
   lhs += rhs;
   return lhs;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> operator+(const T lhs, Vector<T,N> rhs)
 {
   rhs += lhs;
   return rhs;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> operator-(Vector<T,N> lhs, const Vector<T,N> &rhs)
 {
   lhs -= rhs;
   return lhs;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> operator-(Vector<T,N> lhs, const T rhs)
 {
   lhs -= rhs;
   return lhs;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> operator-(const T lhs, Vector<T,N> rhs)
 {
   return (-rhs) += lhs;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> operator*(Vector<T,N> lhs, const T rhs)
 {
   lhs *= rhs;
   return lhs;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> operator*(const T lhs, Vector<T,N> rhs)
 {
   rhs *= lhs;
   return rhs;
 }
 
-template <typename T,int N>
+template <typename T, int N>
 Vector<T,N> operator/(Vector<T,N> lhs, const T rhs)
 {
   lhs /= rhs;
   return lhs;
 }
 
-template <typename T1, typename T2,int N>
+template <typename T1, typename T2, int N>
 bool operator==(const Vector<T1,N>& lhs, const Vector<T2,N>& rhs)
 {
   for(int i=0;i<N;i++)
