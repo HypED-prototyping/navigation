@@ -1,6 +1,5 @@
 /*
   TODO: Add hyped header comments
-  TODO: stackoverflow.com/questions/874298/c-templates-that-accept-only-certain-types
 */
 
 #include <type_traits>
