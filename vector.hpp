@@ -72,6 +72,7 @@ void Vector<T,N>::set(int index, T value)
   this->vector[index] = value;
 }
 
+// TODO: Check if memory leaks
 template <typename T, int N>
 Vector<T,N> Vector<T,N>::operator-() const
 {
