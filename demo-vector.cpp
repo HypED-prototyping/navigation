@@ -5,7 +5,7 @@ template <typename T,int N>
 void print(Vector<T,N> &v)
 {
   for(int i=0;i<N;i++)
-    std::cout << v.vector[i] << '\t';
+    std::cout << v[i] << '\t';
   std::cout << '\n';
 }
 
@@ -21,8 +21,8 @@ int main()
   print(vector3);
 
   for(int i=0;i<10;i++)
-    vector1.set(i,i+1),
-      vector4.set(i,1.1);
+    vector1[i] = i+1,
+      vector4[i] = 1.1;
   
   print(vector4);
 

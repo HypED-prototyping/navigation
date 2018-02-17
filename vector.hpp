@@ -30,24 +30,33 @@ template <typename T, int vector_size>
 class Vector
 {
 public:
-  static_assert((std::is_same<int, T>::value) ||
-		(std::is_same<float, T>::value) ||
-		(std::is_same<double, T>::value),
-		"T must be of type int, float or double.");
-
-  void set(int index, T value);
-
+  
   /**
    * @brief    Constructors for the class for a zero vector.
    */
   Vector(){};
 
   /**
+   * @brief    Constructors for the class for a particular vector.
+   */
+  Vector(T vector[]);
+
+  /**
    * @brief    Type cast for other vectors of the same dimension.
    */
-  Vector(Vector<int,N> &rhs);
-  Vector(Vector<float,N> &rhs);
-  Vector(Vector<double,N> &rhs);
+  Vector(Vector<int,vector_size> &rhs);
+  Vector(Vector<float,vector_size> &rhs);
+  Vector(Vector<double,vector_size> &rhs);
+
+  /**
+   * @brief    For assigning values to entries in a vector.
+   */
+  T &operator[] (int index);
+  
+  /**
+   * @brief    For accessing entries in the vector.
+   */
+  T operator[] (int index) const;
   
   Vector<T,vector_size> operator-() const;
 
@@ -72,30 +81,43 @@ private:
 };
 
 template <typename T, int vector_size>
+Vector<T,vector_size>::Vector(T vector[])
+{
+  for(int i=0;i<vector_size;i++)
+    this->vector[i] = vector[i];
+}
+
+template <typename T, int vector_size>
 Vector<T,vector_size>::Vector(Vector<int,vector_size> &rhs)
 {
   for(int i=0;i<vector_size;i++)
-    this->vector[i] = T(rhs.vector[i]);
+    (*this)[i] = T(rhs[i]);
 }
 
 template <typename T, int vector_size>
 Vector<T,vector_size>::Vector(Vector<float,vector_size> &rhs)
 {
   for(int i=0;i<vector_size;i++)
-    this->vector[i] = T(rhs.vector[i]);
+    (*this)[i] = T(rhs[i]);
 }
 
 template <typename T, int vector_size>
 Vector<T,vector_size>::Vector(Vector<double,vector_size> &rhs)
 {
   for(int i=0;i<vector_size;i++)
-    this->vector[i] = T(rhs.vector[i]);
+    (*this)[i] = T(rhs[i]);
 }
 
 template <typename T, int vector_size>
-void Vector<T,vector_size>::set(int index, T value)
+T &Vector<T,vector_size>::operator[](int index)
 {
-  this->vector[index] = value;
+  return this->vector[index];
+}
+
+template <typename T, int vector_size>
+T Vector<T,vector_size>::operator[](int index) const
+{
+  return this->vector[index];
 }
 
 template <typename T, int vector_size>
@@ -108,7 +130,7 @@ template <typename T, int vector_size>
 Vector<T,vector_size> &Vector<T,vector_size>::operator+=(const Vector<T,vector_size>& rhs)
 {
   for(int i=0;i<vector_size;i++)
-    this->vector[i] += rhs.vector[i];
+    (*this)[i] += rhs[i];
   return *this;
 }
 
@@ -116,7 +138,7 @@ template <typename T, int vector_size>
 Vector<T,vector_size> &Vector<T,vector_size>::operator+=(const T rhs)
 {
   for(int i=0;i<vector_size;i++)
-    this->vector[i] += rhs;
+    (*this)[i] += rhs;
   return *this;
 }
 
@@ -124,7 +146,7 @@ template <typename T, int vector_size>
 Vector<T,vector_size> &Vector<T,vector_size>::operator-=(const Vector<T,vector_size> &rhs)
 {
   for(int i=0;i<vector_size;i++)
-    this->vector[i] += rhs.vector[i];
+    (*this)[i] += rhs[i];
   return *this;
 }
 
@@ -132,7 +154,7 @@ template <typename T, int vector_size>
 Vector<T,vector_size> &Vector<T,vector_size>::operator-=(const T rhs)
 {
   for(int i=0;i<vector_size;i++)
-    this->vector[i] -= rhs;
+    (*this)[i] -= rhs;
   return *this;
 }
 
@@ -140,7 +162,7 @@ template <typename T, int vector_size>
 Vector<T,vector_size> &Vector<T,vector_size>::operator*=(const T rhs)
 {
   for(int i=0;i<vector_size;i++)
-    this->vector[i] *= rhs;
+    (*this)[i] *= rhs;
   return *this;
 }
 
@@ -148,7 +170,7 @@ template <typename T, int vector_size>
 Vector<T,vector_size> &Vector<T,vector_size>::operator/=(const T rhs)
 {
   for(int i=0;i<vector_size;i++)
-    this->vector[i] /= rhs;
+    (*this)[i] /= rhs;
   return *this;
 }
 
@@ -218,7 +240,7 @@ template <typename T1, typename T2, int vector_size>
 bool operator==(const Vector<T1,vector_size>& lhs, const Vector<T2,vector_size>& rhs)
 {
   for(int i=0;i<vector_size;i++)
-    if(lhs.vector[i] != rhs.vector[i])
+    if(lhs[i] != rhs[i])
       return false;
   return true;
 }
