@@ -21,7 +21,7 @@
  *    limitations under the License.
  */
 
-#include <type_traits>
+#include <array>
 
 #ifndef VECTOR_HPP_
 #define VECTOR_HPP_
@@ -34,7 +34,7 @@ public:
   /**
    * @brief    Constructors for the class for a zero vector.
    */
-  Vector(){};
+  Vector();
 
   /**
    * @brief    Constructors for the class for a particular vector.
@@ -77,8 +77,16 @@ public:
   Vector<T,vector_size> &operator/=(const T rhs);
 
 private:
-  T vector[vector_size] = {};
+  std::array<T,vector_size> vector = {};
+  
 };
+
+template <typename T, int vector_size>
+Vector<T,vector_size>::Vector()
+{
+  for(int i=0;i<vector_size;i++)
+    this->vector[i] = 0;
+}
 
 template <typename T, int vector_size>
 Vector<T,vector_size>::Vector(T vector[])
