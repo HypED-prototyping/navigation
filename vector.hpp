@@ -154,7 +154,7 @@ template <typename T, int vector_size>
 Vector<T,vector_size> &Vector<T,vector_size>::operator-=(const Vector<T,vector_size> &rhs)
 {
   for(int i=0; i<vector_size; i++)
-    (*this)[i] += rhs[i];
+    (*this)[i] -= rhs[i];
   return *this;
 }
 
