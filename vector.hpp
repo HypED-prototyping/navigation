@@ -42,11 +42,18 @@ public:
   Vector(T vector[]);
 
   /**
-   * @brief    Type cast for other vectors of the same dimension.
+   * @brief    Conversion from a vector type to another.
    */
   Vector(Vector<int,vector_size> &rhs);
   Vector(Vector<float,vector_size> &rhs);
   Vector(Vector<double,vector_size> &rhs);
+
+  /**
+   * @brief    Conversion from a vector type by assignment.
+   */
+  Vector<T,vector_size> &operator=(const Vector<int,vector_size> &rhs);
+  Vector<T,vector_size> &operator=(const Vector<float,vector_size> &rhs);
+  Vector<T,vector_size> &operator=(const Vector<double,vector_size> &rhs);
 
   /**
    * @brief    For assigning values to entries in a vector.
@@ -114,6 +121,33 @@ Vector<T,vector_size>::Vector(Vector<double,vector_size> &rhs)
 {
   for(int i=0; i<vector_size; i++)
     (*this)[i] = T(rhs[i]);
+}
+
+template <typename T, int vector_size>
+Vector<T,vector_size> &Vector<T,vector_size>::operator=
+(const Vector<int,vector_size> &rhs)
+{
+  for(int i=0; i<vector_size; i++)
+    (*this)[i] = T(rhs[i]);
+  return *this;
+}
+
+template <typename T, int vector_size>
+Vector<T,vector_size> &Vector<T,vector_size>::operator=
+(const Vector<float,vector_size> &rhs)
+{
+  for(int i=0; i<vector_size; i++)
+    (*this)[i] = T(rhs[i]);
+  return *this;
+}
+
+template <typename T, int vector_size>
+Vector<T,vector_size> &Vector<T,vector_size>::operator=
+(const Vector<double,vector_size> &rhs)
+{
+  for(int i=0; i<vector_size; i++)
+    (*this)[i] = T(rhs[i]);
+  return *this;
 }
 
 template <typename T, int vector_size>
