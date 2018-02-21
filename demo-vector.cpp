@@ -32,11 +32,11 @@ int main()
   vector2 = vector2 - 2;
   vector3 = vector1 - vector2;
 
-  vector3 = vector1 * 5;
-  vector3 = vector1 / 5;
+  vector3 = vector1 * 5.0;
+  vector3 = vector1 / 5.0;
 
-  vector4 = vector4 + Vector<double,10>(vector1);
-  vector1 = vector4;
+  vector4 = vector4 + vector1;
+  vector4 = vector4 - vector1;
   
   (vector1 == vector3) ? std::cout << "False" :
     std::cout << "True"; std :: cout << '\n';
