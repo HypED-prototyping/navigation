@@ -94,14 +94,14 @@ template <typename T, int dimension>
 Vector<T,dimension>::Vector()
 {
   for (int i=0; i<dimension; i++)
-    (*this)[i] = 0;
+    this->elements_[i] = 0;
 }
 
 template <typename T, int dimension>
 Vector<T,dimension>::Vector(const T vector[])
 {
   for (int i=0; i<dimension; i++)
-    (*this)[i] = vector[i];
+    this->elements_[i] = vector[i];
 }
 
 template <typename T, int dimension>
@@ -109,7 +109,7 @@ template <typename U>
 Vector<T,dimension>::Vector(const Vector<U,dimension>& rhs)
 {
   for (int i=0; i<dimension; i++)
-    (*this)[i] = T(rhs[i]);
+    this->elements_[i] = T(rhs[i]);
 }
 
 template <typename T, int dimension>
@@ -118,7 +118,7 @@ Vector<T,dimension>& Vector<T,dimension>::operator=
 (const Vector<U,dimension>& rhs)
 {
   for (int i=0; i<dimension; i++)
-    (*this)[i] = T(rhs[i]);
+    this->elements_[i] = T(rhs[i]);
   return *this;
 }
 
@@ -144,7 +144,7 @@ template <typename T, int dimension>
 Vector<T,dimension>& Vector<T,dimension>::operator+=(const Vector<T,dimension>& rhs)
 {
   for (int i=0; i<dimension; i++)
-    (*this)[i] += rhs[i];
+    this->elements_[i] += rhs[i];
   return *this;
 }
 
@@ -152,7 +152,7 @@ template <typename T, int dimension>
 Vector<T,dimension>& Vector<T,dimension>::operator-=(const Vector<T,dimension>& rhs)
 {
   for (int i=0; i<dimension; i++)
-    (*this)[i] -= rhs[i];
+    this->elements_[i] -= rhs[i];
   return *this;
 }
 
@@ -160,7 +160,7 @@ template <typename T, int dimension>
 Vector<T,dimension>& Vector<T,dimension>::operator+=(const T rhs)
 {
   for (int i=0; i<dimension; i++)
-    (*this)[i] += rhs;
+    this->elements_[i] += rhs;
   return *this;
 }
 
@@ -168,7 +168,7 @@ template <typename T, int dimension>
 Vector<T,dimension>& Vector<T,dimension>::operator-=(const T rhs)
 {
   for (int i=0; i<dimension; i++)
-    (*this)[i] -= rhs;
+    this->elements_[i] -= rhs;
   return *this;
 }
 
@@ -176,7 +176,7 @@ template <typename T, int dimension>
 Vector<T,dimension>& Vector<T,dimension>::operator*=(const T rhs)
 {
   for (int i=0; i<dimension; i++)
-    (*this)[i] *= rhs;
+    this->elements_[i] *= rhs;
   return *this;
 }
 
@@ -184,7 +184,7 @@ template <typename T, int dimension>
 Vector<T,dimension>& Vector<T,dimension>::operator/=(const T rhs)
 {
   for (int i=0; i<dimension; i++)
-    (*this)[i] /= rhs;
+    this->elements_[i] /= rhs;
   return *this;
 }
 
