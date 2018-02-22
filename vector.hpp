@@ -148,18 +148,18 @@ Vector<T,dimension>& Vector<T,dimension>::operator+=(const Vector<T,dimension>& 
 }
 
 template <typename T, int dimension>
-Vector<T,dimension>& Vector<T,dimension>::operator+=(const T rhs)
-{
-  for (int i=0; i<dimension; i++)
-    (*this)[i] += rhs;
-  return *this;
-}
-
-template <typename T, int dimension>
 Vector<T,dimension>& Vector<T,dimension>::operator-=(const Vector<T,dimension>& rhs)
 {
   for (int i=0; i<dimension; i++)
     (*this)[i] -= rhs[i];
+  return *this;
+}
+
+template <typename T, int dimension>
+Vector<T,dimension>& Vector<T,dimension>::operator+=(const T rhs)
+{
+  for (int i=0; i<dimension; i++)
+    (*this)[i] += rhs;
   return *this;
 }
 
@@ -196,25 +196,22 @@ auto operator+(const Vector<T1,dimension>& lhs, const Vector<T2,dimension>& rhs)
   return ans;
 }
 
-template <typename T, int dimension>
-Vector<T,dimension> operator+(Vector<T,dimension> lhs, const Vector<T,dimension>& rhs)
+template <typename T1, typename T2, int dimension>
+auto operator+(const Vector<T1,dimension>& lhs, const T2 rhs)
+  -> Vector<decltype(lhs[0]+rhs),dimension>
 {
-  lhs += rhs;
-  return lhs;
+  Vector<decltype(lhs[0]+rhs),dimension> ans(lhs);
+  ans += rhs;
+  return ans;
 }
 
-template <typename T, int dimension>
-Vector<T,dimension> operator+(Vector<T,dimension> lhs, const T rhs)
+template <typename T1, typename T2, int dimension>
+auto operator+(const T1 lhs, const Vector<T2,dimension>& rhs)
+  -> Vector<decltype(lhs+rhs[0]),dimension>
 {
-  lhs += rhs;
-  return lhs;
-}
-
-template <typename T, int dimension>
-Vector<T,dimension> operator+(const T lhs, Vector<T,dimension> rhs)
-{
-  rhs += lhs;
-  return rhs;
+  Vector<decltype(lhs+rhs[0]),dimension> ans(lhs);
+  ans += rhs;
+  return ans;
 }
 
 template <typename T1, typename T2, int dimension>
@@ -226,24 +223,22 @@ auto operator-(const Vector<T1,dimension>& lhs, const Vector<T2,dimension>& rhs)
   return ans;
 }
 
-template <typename T, int dimension>
-Vector<T,dimension> operator-(Vector<T,dimension> lhs, const Vector<T,dimension>& rhs)
+template <typename T1, typename T2, int dimension>
+auto operator-(const Vector<T1,dimension>& lhs, const T2 rhs)
+  -> Vector<decltype(lhs[0]-rhs),dimension>
 {
-  lhs -= rhs;
-  return lhs;
+  Vector<decltype(lhs[0]-rhs),dimension> ans(lhs);
+  ans -= rhs;
+  return ans;
 }
 
-template <typename T, int dimension>
-Vector<T,dimension> operator-(Vector<T,dimension> lhs, const T rhs)
+template <typename T1, typename T2, int dimension>
+auto operator-(const T1 lhs, const Vector<T2,dimension>& rhs)
+  -> Vector<decltype(lhs-rhs[0]),dimension>
 {
-  lhs -= rhs;
-  return lhs;
-}
-
-template <typename T, int dimension>
-Vector<T,dimension> operator-(const T lhs, Vector<T,dimension> rhs)
-{
-  return (-rhs) += lhs;
+  Vector<decltype(lhs-rhs[0]),dimension> ans(lhs);
+  ans -= rhs;
+  return ans;
 }
 
 template <typename T1, typename T2, int dimension>
@@ -255,18 +250,13 @@ auto operator*(const Vector<T1,dimension>& lhs, const T2 rhs)
   return ans;
 }
 
-template <typename T, int dimension>
-Vector<T,dimension> operator*(Vector<T,dimension> lhs, const T rhs)
+template <typename T1, typename T2, int dimension>
+auto operator*(const T1 lhs, const Vector<T2,dimension>& rhs)
+  -> Vector<decltype(lhs*rhs[0]),dimension>
 {
-  lhs *= rhs;
-  return lhs;
-}
-
-template <typename T, int dimension>
-Vector<T,dimension> operator*(const T lhs, Vector<T,dimension> rhs)
-{
-  rhs *= lhs;
-  return rhs;
+  Vector<decltype(lhs*rhs[0]),dimension> ans(lhs);
+  ans *= rhs;
+  return ans;
 }
 
 template <typename T1, typename T2, int dimension>
@@ -278,11 +268,13 @@ auto operator/(const Vector<T1,dimension>& lhs, const T2 rhs)
   return ans;
 }
 
-template <typename T, int dimension>
-Vector<T,dimension> operator/(Vector<T,dimension> lhs, const T rhs)
+template <typename T1, typename T2, int dimension>
+auto operator/(const T1 lhs, const Vector<T2,dimension>& rhs)
+  -> Vector<decltype(lhs*rhs[0]),dimension>
 {
-  lhs /= rhs;
-  return lhs;
+  Vector<decltype(lhs*rhs[0]),dimension> ans(lhs);
+  ans /= rhs;
+  return ans;
 }
 
 template <typename T1, typename T2, int dimension>
