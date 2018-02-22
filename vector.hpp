@@ -44,16 +44,14 @@ public:
   /**
    * @brief    Conversion from a vector type to another.
    */
-  Vector(const Vector<int,vector_size> &rhs);
-  Vector(const Vector<float,vector_size> &rhs);
-  Vector(const Vector<double,vector_size> &rhs);
+  template <typename U>
+  Vector(const Vector<U,vector_size> &rhs);
 
   /**
    * @brief    Conversion from a vector type by assignment.
    */
-  Vector<T,vector_size> &operator=(const Vector<int,vector_size> &rhs);
-  Vector<T,vector_size> &operator=(const Vector<float,vector_size> &rhs);
-  Vector<T,vector_size> &operator=(const Vector<double,vector_size> &rhs);
+  template <typename U>
+  Vector<T,vector_size> &operator=(const Vector<U,vector_size> &rhs);
 
   /**
    * @brief    For assigning values to entries in a vector.
@@ -103,47 +101,17 @@ Vector<T,vector_size>::Vector(const T vector[])
 }
 
 template <typename T, int vector_size>
-Vector<T,vector_size>::Vector(const Vector<int,vector_size> &rhs)
+template <typename U>
+Vector<T,vector_size>::Vector(const Vector<U,vector_size> &rhs)
 {
   for(int i=0; i<vector_size; i++)
     (*this)[i] = T(rhs[i]);
 }
 
 template <typename T, int vector_size>
-Vector<T,vector_size>::Vector(const Vector<float,vector_size> &rhs)
-{
-  for(int i=0; i<vector_size; i++)
-    (*this)[i] = T(rhs[i]);
-}
-
-template <typename T, int vector_size>
-Vector<T,vector_size>::Vector(const Vector<double,vector_size> &rhs)
-{
-  for(int i=0; i<vector_size; i++)
-    (*this)[i] = T(rhs[i]);
-}
-
-template <typename T, int vector_size>
+template <typename U>
 Vector<T,vector_size> &Vector<T,vector_size>::operator=
-(const Vector<int,vector_size> &rhs)
-{
-  for(int i=0; i<vector_size; i++)
-    (*this)[i] = T(rhs[i]);
-  return *this;
-}
-
-template <typename T, int vector_size>
-Vector<T,vector_size> &Vector<T,vector_size>::operator=
-(const Vector<float,vector_size> &rhs)
-{
-  for(int i=0; i<vector_size; i++)
-    (*this)[i] = T(rhs[i]);
-  return *this;
-}
-
-template <typename T, int vector_size>
-Vector<T,vector_size> &Vector<T,vector_size>::operator=
-(const Vector<double,vector_size> &rhs)
+(const Vector<U,vector_size> &rhs)
 {
   for(int i=0; i<vector_size; i++)
     (*this)[i] = T(rhs[i]);
@@ -217,9 +185,10 @@ Vector<T,vector_size> &Vector<T,vector_size>::operator/=(const T rhs)
 }
 
 template <typename T1, typename T2, int vector_size>
-Vector<double,vector_size> operator+(const Vector<T1,vector_size> &lhs, const Vector<T2,vector_size> &rhs)
+auto operator+(const Vector<T1,vector_size> &lhs, const Vector<T2,vector_size> &rhs)
+  -> Vector<decltype(lhs[0]+rhs[0]),vector_size>
 {
-  Vector<double,vector_size> ans(lhs);
+  Vector<decltype(lhs[0]+rhs[0]),vector_size> ans(lhs);
   ans += rhs;
   return ans;
 }
@@ -246,9 +215,10 @@ Vector<T,vector_size> operator+(const T lhs, Vector<T,vector_size> rhs)
 }
 
 template <typename T1, typename T2, int vector_size>
-Vector<double,vector_size> operator-(const Vector<T1,vector_size> &lhs, const Vector<T2,vector_size> &rhs)
+auto operator-(const Vector<T1,vector_size> &lhs, const Vector<T2,vector_size> &rhs)
+  -> Vector<decltype(lhs[0]-rhs[0]),vector_size>
 {
-  Vector<double,vector_size> ans(lhs);
+  Vector<decltype(lhs[0]-rhs[0]),vector_size> ans(lhs);
   ans -= rhs;
   return ans;
 }
