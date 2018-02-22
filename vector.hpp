@@ -86,7 +86,7 @@ class Vector {
   Vector<T,dimension>& operator/=(const T rhs);
 
  private:
-  std::array<T,dimension> vector = {};
+  std::array<T,dimension> elements_;
 
 };
 
@@ -94,14 +94,14 @@ template <typename T, int dimension>
 Vector<T,dimension>::Vector()
 {
   for (int i=0; i<dimension; i++)
-    this->vector[i] = 0;
+    (*this)[i] = 0;
 }
 
 template <typename T, int dimension>
 Vector<T,dimension>::Vector(const T vector[])
 {
   for (int i=0; i<dimension; i++)
-    this->vector[i] = vector[i];
+    (*this)[i] = vector[i];
 }
 
 template <typename T, int dimension>
@@ -125,13 +125,13 @@ Vector<T,dimension>& Vector<T,dimension>::operator=
 template <typename T, int dimension>
 T& Vector<T,dimension>::operator[](int index)
 {
-  return this->vector[index];
+  return this->elements_[index];
 }
 
 template <typename T, int dimension>
 T Vector<T,dimension>::operator[](int index) const
 {
-  return this->vector[index];
+  return this->elements_[index];
 }
 
 template <typename T, int dimension>
