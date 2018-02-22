@@ -190,7 +190,7 @@ Vector<T,dimension>& Vector<T,dimension>::operator/=(const T rhs)
 
 template <typename T1, typename T2, int dimension>
 auto operator+(const Vector<T1,dimension>& lhs, const Vector<T2,dimension>& rhs)
-  -> Vector<decltype(lhs[0]+rhs[0]),dimension>
+    -> Vector<decltype(lhs[0]+rhs[0]),dimension>
 {
   Vector<decltype(lhs[0]+rhs[0]),dimension> ans(lhs);
   ans += rhs;
@@ -199,7 +199,7 @@ auto operator+(const Vector<T1,dimension>& lhs, const Vector<T2,dimension>& rhs)
 
 template <typename T1, typename T2, int dimension>
 auto operator+(const Vector<T1,dimension>& lhs, const T2 rhs)
-  -> Vector<decltype(lhs[0]+rhs),dimension>
+    -> Vector<decltype(lhs[0]+rhs),dimension>
 {
   Vector<decltype(lhs[0]+rhs),dimension> ans(lhs);
   ans += rhs;
@@ -208,7 +208,7 @@ auto operator+(const Vector<T1,dimension>& lhs, const T2 rhs)
 
 template <typename T1, typename T2, int dimension>
 auto operator+(const T1 lhs, const Vector<T2,dimension>& rhs)
-  -> Vector<decltype(lhs+rhs[0]),dimension>
+    -> Vector<decltype(lhs+rhs[0]),dimension>
 {
   Vector<decltype(lhs+rhs[0]),dimension> ans(lhs);
   ans += rhs;
@@ -217,7 +217,7 @@ auto operator+(const T1 lhs, const Vector<T2,dimension>& rhs)
 
 template <typename T1, typename T2, int dimension>
 auto operator-(const Vector<T1,dimension>& lhs, const Vector<T2,dimension>& rhs)
-  -> Vector<decltype(lhs[0]-rhs[0]),dimension>
+    -> Vector<decltype(lhs[0]-rhs[0]),dimension>
 {
   Vector<decltype(lhs[0]-rhs[0]),dimension> ans(lhs);
   ans -= rhs;
@@ -226,7 +226,7 @@ auto operator-(const Vector<T1,dimension>& lhs, const Vector<T2,dimension>& rhs)
 
 template <typename T1, typename T2, int dimension>
 auto operator-(const Vector<T1,dimension>& lhs, const T2 rhs)
-  -> Vector<decltype(lhs[0]-rhs),dimension>
+    -> Vector<decltype(lhs[0]-rhs),dimension>
 {
   Vector<decltype(lhs[0]-rhs),dimension> ans(lhs);
   ans -= rhs;
@@ -235,7 +235,7 @@ auto operator-(const Vector<T1,dimension>& lhs, const T2 rhs)
 
 template <typename T1, typename T2, int dimension>
 auto operator-(const T1 lhs, const Vector<T2,dimension>& rhs)
-  -> Vector<decltype(lhs-rhs[0]),dimension>
+    -> Vector<decltype(lhs-rhs[0]),dimension>
 {
   Vector<decltype(lhs-rhs[0]),dimension> ans(lhs);
   ans -= rhs;
@@ -244,7 +244,7 @@ auto operator-(const T1 lhs, const Vector<T2,dimension>& rhs)
 
 template <typename T1, typename T2, int dimension>
 auto operator*(const Vector<T1,dimension>& lhs, const T2 rhs)
-  -> Vector<decltype(lhs[0]*rhs),dimension>
+    -> Vector<decltype(lhs[0]*rhs),dimension>
 {
   Vector<decltype(lhs[0]*rhs),dimension> ans(lhs);
   ans *= rhs;
@@ -253,7 +253,7 @@ auto operator*(const Vector<T1,dimension>& lhs, const T2 rhs)
 
 template <typename T1, typename T2, int dimension>
 auto operator*(const T1 lhs, const Vector<T2,dimension>& rhs)
-  -> Vector<decltype(lhs*rhs[0]),dimension>
+    -> Vector<decltype(lhs*rhs[0]),dimension>
 {
   Vector<decltype(lhs*rhs[0]),dimension> ans(lhs);
   ans *= rhs;
@@ -262,7 +262,7 @@ auto operator*(const T1 lhs, const Vector<T2,dimension>& rhs)
 
 template <typename T1, typename T2, int dimension>
 auto operator/(const Vector<T1,dimension>& lhs, const T2 rhs)
-  -> Vector<decltype(lhs[0]*rhs),dimension>
+    -> Vector<decltype(lhs[0]*rhs),dimension>
 {
   Vector<decltype(lhs[0]*rhs),dimension> ans(lhs);
   ans /= rhs;
@@ -271,7 +271,7 @@ auto operator/(const Vector<T1,dimension>& lhs, const T2 rhs)
 
 template <typename T1, typename T2, int dimension>
 auto operator/(const T1 lhs, const Vector<T2,dimension>& rhs)
-  -> Vector<decltype(lhs*rhs[0]),dimension>
+    -> Vector<decltype(lhs*rhs[0]),dimension>
 {
   Vector<decltype(lhs*rhs[0]),dimension> ans(lhs);
   ans /= rhs;
