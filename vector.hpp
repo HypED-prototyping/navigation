@@ -26,11 +26,6 @@
 #ifndef VECTOR_HPP_
 #define VECTOR_HPP_
 
-/*
- * TODO: Add assertion for dimension
- * TODO: Add assertion for division
- */
-
 template <typename T, int dimension>
 class Vector {
  public:
@@ -265,15 +260,6 @@ auto operator/(const Vector<T1,dimension>& lhs, const T2 rhs)
     -> Vector<decltype(lhs[0]*rhs),dimension>
 {
   Vector<decltype(lhs[0]*rhs),dimension> ans(lhs);
-  ans /= rhs;
-  return ans;
-}
-
-template <typename T1, typename T2, int dimension>
-auto operator/(const T1 lhs, const Vector<T2,dimension>& rhs)
-    -> Vector<decltype(lhs*rhs[0]),dimension>
-{
-  Vector<decltype(lhs*rhs[0]),dimension> ans(lhs);
   ans /= rhs;
   return ans;
 }
