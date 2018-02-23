@@ -40,7 +40,7 @@ class Vector {
   /**
    * @brief    Constructors for the class for a particular vector.
    */
-  Vector(const T vector[]);
+  Vector(const std::array<T,dimension>& vector);
 
   /**
    * @brief    Conversion from a vector type to another.
@@ -101,7 +101,7 @@ Vector<T,dimension>::Vector(const T element)
 }
 
 template <typename T, int dimension>
-Vector<T,dimension>::Vector(const T vector[])
+Vector<T,dimension>::Vector(const std::array<T,dimension>& vector)
 {
   for (int i=0; i<dimension; i++)
     elements_[i] = vector[i];
