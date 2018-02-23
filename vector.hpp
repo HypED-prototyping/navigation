@@ -35,6 +35,7 @@ class Vector {
    * @brief    Constructors for the class for a zero vector.
    */
   Vector();
+  Vector(const T element);
 
   /**
    * @brief    Constructors for the class for a particular vector.
@@ -90,6 +91,13 @@ Vector<T,dimension>::Vector()
 {
   for (int i=0; i<dimension; i++)
     elements_[i] = 0;
+}
+
+template <typename T, int dimension>
+Vector<T,dimension>::Vector(const T element)
+{
+  for (int i=0; i<dimension; i++)
+    elements_[i] = element;
 }
 
 template <typename T, int dimension>
