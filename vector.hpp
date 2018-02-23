@@ -29,7 +29,7 @@
 template <typename T, int dimension>
 class Vector {
  public:
-  static_assert(dimension>0, "Dimension cannot be non-zero");
+  static_assert(dimension>0, "Dimension must be greater than zero.");
   
   /**
    * @brief    Constructors for the class for a zero vector.
