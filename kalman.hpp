@@ -1,4 +1,14 @@
-// TODO: Add hyped header comments
+/*
+  TODO: Add hyped header comments
+  TODO: Check if static is needed
+  TODO: Decide the process noise value
+  TODO: Check if estimation_error is needed as an arguement
+  TODO: Add hyped header comments
+  TODO: Check if static is needed
+  TODO: Decide the process noise value
+  TODO: Check if estimation_error is needed as an arguement
+  TODO: Decide value of process noise
+*/
 
 #ifndef HYPED_NAVIGATION_KALMAN_HPP_
 #define HYPED_NAVIGATION_KALMAN_HPP_
@@ -7,16 +17,6 @@ template<typename T>
 class Kalman {
   
  public:
-
-  // TODO: Check if static is needed
-  // TODO: Decide the process noise value
-  // TODO: Check if estimation_error is needed as an arguement
-  
-  // TODO: Add hyped header comments
-  
-  // TODO: Check if static is needed
-  // TODO: Decide the process noise value
-  // TODO: Check if estimation_error is needed as an arguement
   
   Kalman (T input_value, T measurement_noise, T estimation_error = 0)
     : measurement_noise_covariance_(measurement_noise),
@@ -35,8 +35,6 @@ class Kalman {
   }
   
  private:
-  // TODO: Convert to vector class
-  // TODO: Decide value of process noise
   const T k_process_noise_{0.01};
   
   T measurement_noise_covariance_;
